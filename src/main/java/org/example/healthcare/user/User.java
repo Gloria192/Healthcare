@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 import java.util.List;
 
-import org.example.healthcare.doctor.Doctor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

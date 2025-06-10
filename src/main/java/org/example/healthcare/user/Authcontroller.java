@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
         @PostMapping("/login")
         public ResponseEntity<String> login(@RequestBody LoginRequest request) {
             User user = userService.authenticate(request);
-            String token = jwtUtil.generateToken(user.getUsername());
+            String token = jwtUtil.generateToken(user.getEmail());
             return ResponseEntity.ok(token);
         }
     }
