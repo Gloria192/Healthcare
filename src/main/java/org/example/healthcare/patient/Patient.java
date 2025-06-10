@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.healthcare.appointment.Appointment;
 import org.example.healthcare.clinic.Clinic;
+import org.example.healthcare.medicalrecord.MedicalRecord;
 
 import java.time.LocalDate;
 import java.util.List;
