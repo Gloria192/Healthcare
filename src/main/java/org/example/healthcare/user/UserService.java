@@ -16,7 +16,6 @@ public class UserService {
 
     public void register(RegisterRequest request) {
         User user = new User();
-        user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
 
         String hashedPassword = passwordEncoder.encode(request.Password());
@@ -32,7 +31,7 @@ public class UserService {
 
 
     public User authenticate(LoginRequest request) {
-        User user = userRepository.findByUsername(request.getUsername())
+        User user = userRepository.findByEmail(request.getUsername())
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
         if (!passwordEncoder.matches(request.password(),user.getPassword())) {

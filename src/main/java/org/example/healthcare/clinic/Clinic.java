@@ -14,7 +14,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="clinics")
+@Table(name=" clinics ")
 public class Clinic {
 
         @Id @GeneratedValue private Long id;
@@ -24,7 +24,7 @@ public class Clinic {
         private String address;
         @Column(unique = true, length = 20)
         private String phone;
-
-        @OneToMany(mappedBy = "clinic") private List<Patient> patients;
-        @OneToMany(mappedBy = "clinic") private List<Doctor> doctors;
+//
+//        @OneToMany(mappedBy = "clinic") private List<Patient> patients;
+//        @OneToMany(mappedBy = "clinic") private List<Doctor> doctors;
     }
