@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.healthcare.doctor.Doctor;
+import org.example.healthcare.patient.Patient;
 
 import java.util.List;
 
