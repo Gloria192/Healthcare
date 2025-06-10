@@ -1,27 +1,43 @@
 package org.example.healthcare.user;
 
 
-import lombok.Setter;
-
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
-    private  final UserRepository userRepository;
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-    public User createUser(User user) {
 
-        return userRepository.save(user);
-    }
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-    public User updateUser(User user) {
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-        return userRepository.save(user);
-    }
-}
+    public void register(RegisterRequest request) {
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
 
+        String hashedPassword = passwordEncoder.encode(request.Password());
+        System.out.println("Hashed password: " + hashedPassword);
+
+        user.setPassword(hashedPassword);
+        userRepository.save(user);
+    }
+
+
+
+
+
+
+    public User authenticate(LoginRequest request) {
+        User user = userRepository.findByUsername(request.getUsername())
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        if (!passwordEncoder.matches(request.password(),user.getPassword())) {
+            throw new BadCredentialsException("Incorrect password");
+        };
+        return user;
+    }
+    }
