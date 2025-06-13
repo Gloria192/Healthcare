@@ -1,6 +1,7 @@
 package org.example.healthcare.clinic;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +10,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/clinics")
+@SecurityRequirement(name = "auth")
 public class ClinicController {
     private final ClinicService clinicService;
 

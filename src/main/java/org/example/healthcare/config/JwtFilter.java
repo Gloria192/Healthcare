@@ -16,7 +16,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 import java.util.Optional;
 
-@Component
+    @Component
     @RequiredArgsConstructor
     public class JwtFilter extends OncePerRequestFilter {
 
@@ -28,10 +28,16 @@ import java.util.Optional;
                                         HttpServletResponse response,
                                         FilterChain filterChain) throws ServletException, IOException {
 
-            String authHeader = request.getHeader("Authorization");
+            String path = request.getServletPath();
+            if (path.equals("/api/user/register") || path.equals("/api/user/login")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
 
+
+            String authHeader = request.getHeader("Authorization");
             String token = null;
-            String email= null;
+            String email = null;
 
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 token = authHeader.substring(7);
@@ -40,21 +46,15 @@ import java.util.Optional;
 
             if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
                 Optional<User> user = userRepository.findByEmail(email);
-
                 if (user.isPresent() && jwtUtil.isTokenValid(token)) {
                     User actualUser = user.get();
-
                     UsernamePasswordAuthenticationToken authToken =
-                            new UsernamePasswordAuthenticationToken(
-                                    actualUser, null, actualUser.getAuthorities());
-
+                            new UsernamePasswordAuthenticationToken(actualUser, null, actualUser.getAuthorities());
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }
-
             }
 
             filterChain.doFilter(request, response);
         }
     }
-

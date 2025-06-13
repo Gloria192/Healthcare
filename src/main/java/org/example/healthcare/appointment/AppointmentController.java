@@ -1,4 +1,5 @@
 package org.example.healthcare.appointment;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -10,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/appointments")
+@SecurityRequirement(name = "auth")
 public class AppointmentController {
 
     @Autowired

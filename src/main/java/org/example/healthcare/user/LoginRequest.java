@@ -11,6 +11,7 @@ import lombok.Setter;
         private String password;
 
         public CharSequence password() {
+
             return password;
         }
     }
