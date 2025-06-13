@@ -1,22 +1,22 @@
 package org.example.healthcare.user;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
 
-import lombok.Getter;
-import lombok.Setter;
+@Data
+public class RegisterRequest {
 
+    @NotBlank(message = "First name is required")
+    private String firstName;
 
-@Setter
-@Getter
-    public class RegisterRequest{
-        private String username;
-        private String email;
-        private String password;
+    @NotBlank(message = "Last name is required")
+    private String lastName;
 
-        public CharSequence Password() {
-            return password;
-        }
-    }
+    @Email(message = "Invalid email")
+    @NotBlank(message = "Email is required")
+    private String email;
 
-
-
-
+    @NotBlank(message = "Password is required")
+    private String password;
+}

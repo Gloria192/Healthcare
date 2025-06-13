@@ -1,3 +1,4 @@
+
 package org.example.healthcare.user;
 
 import jakarta.persistence.*;
@@ -19,22 +20,24 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(unique = true, nullable = false, length = 50)
-    @NotBlank(message = "the firstname is required")
+
+    @Column(nullable = false)
+    @NotBlank(message = "First name is required")
     private String firstname;
-    @Column(unique = true, nullable = false, length = 50)
-    @NotBlank(message = "the last name is required")
+
+    @Column(nullable = false)
+    @NotBlank(message = "Last name is required")
     private String lastname;
-    @Column(unique = true, nullable = false, length = 50)
-    @NotBlank(message="the email is requied")
+
+    @Column(unique = true, nullable = false)
+    @NotBlank(message = "Email is required")
     private String email;
-    @Column(unique = true, nullable = false, length = 50)
-    @NotBlank(message = "the password is required")
+
+    @Column(nullable = false)
+    @NotBlank(message = "Password is required")
     private String password;
 
-    public Collection<? extends GrantedAuthority> getAuthorities(){
-        return List.of(new SimpleGrantedAuthority("Role"));
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER")); // use actual role format
     }
-
-
 }

@@ -1,10 +1,12 @@
 package org.example.healthcare.patient;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/patients")  // Base path for all patient routes
+@RequestMapping("/patients")
+@SecurityRequirement(name = "auth")// Base path for all patient routes
 public class PatientController {
 
     private final PatientService patientService;
